@@ -31,3 +31,6 @@ jobs:
           
           # Ausgabe der Matrix
           echo "The stored matrix is: $MATRIX"
+
+          SECOND_OBJECT=$(echo "$MATRIX" | jq '.group2[1]')  
+          echo "The second object in group2 is: $SECOND_OBJECT"
