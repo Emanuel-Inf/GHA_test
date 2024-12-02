@@ -22,5 +22,5 @@ jobs:
     steps:
       - run: |
 
-          echo "Matrix from job1: ${{ needs.job1.outputs.matrix }}"
+          echo "Matrix from job1"
           # Gibt die Werte aus der Matrix aus
