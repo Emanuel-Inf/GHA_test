@@ -25,7 +25,7 @@ jobs:
           
           echo "$testmatrix"
           
-          echo "matrix=$testmatrix" >> $GITHUB_OUTPUT
+          echo "matrix=$testmatrix" >> $GITHUB_ENV  
 
   job2: 
     runs-on: ubuntu-latest
