@@ -1,0 +1,15 @@
+name: Simple Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - name: Print Hello World
+        run: echo "Hello, World!"  # Gibt "Hello, World!" in der GitHub Actions-Ausgabe aus
