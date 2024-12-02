@@ -34,7 +34,19 @@ jobs:
          # Speichern der Matrix in einer Variablen
           MATRIX="${{ needs.job1.outputs.matrix }}"
           
-          echo "The stored matrix is: '$MATRIX'"
+          echo "The stored matrix is: $MATRIX"
+          RAW_STRING='$MATRIX'
 
-          SECOND_OBJECT=$(echo "'$MATRIX'" | jq -r '.group2')  
+          FORMATTED_STRING=$(echo "$RAW_STRING" \
+            | sed 's/{/{" /g' \
+            | sed 's/}/" }/g' \
+            | sed 's/:/":"/g' \
+            | sed 's/,/", "/g' \
+            | sed 's/\[/\[ "/g' \
+            | sed 's/\]/" \]/g' \
+          )
+          echo "$FORMATTED_STRING"
+
+
+          SECOND_OBJECT=$(echo "$MATRIX" | jq -r '.group2')  
           echo "The second object in group2 is: $SECOND_OBJECT"
