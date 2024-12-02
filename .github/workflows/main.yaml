@@ -14,8 +14,6 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          #testmatrix='{"group1":[\"item1\", \"items2\"], "group2":[\"item1\", \"items2\", \"items3\"], "group3":[\"item1\", \"items2\", \"items3\", \"items4\"], "group4":[\"item1\", \"items2\", \"item3\", \"items4\", \"item5\", \"items6\"]}'
-          #matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]} >> $GITHUB_OUTPUT
           testmatrix='{
             "group1": ["item1", "items2"],
             "group2": ["item1", "items2", "items3"],
@@ -23,11 +21,8 @@ jobs:
             "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
           }'
           
-          echo "$testmatrix"
-          
           matrix_str=$(echo "$testmatrix" | jq -c .)  
 
-          echo "$matrix_str"
           echo "matrix=$matrix_str" >> "$GITHUB_OUTPUT"  
 
   job2: 
@@ -37,11 +32,9 @@ jobs:
       - run: |
       
          # Speichern der Matrix in einer Variablen
-          MATRIX='"${{ needs.job1.outputs.matrix }}"'
-         # MATRIX='{"group1":["item1","items2"],"group2":["item1","items2","items3"],"group3":["item1","items2","items3","items4"],"group4":["item1","items2","item3","items4","item5","items6"]}'
+          MATRIX="'${{ needs.job1.outputs.matrix }}'"
+        
           echo "The stored matrix is: $MATRIX"
 
-          CLEANED_MATRIX=$(echo $MATRIX | sed 's/^"//;s/"$//')
-
-          SECOND_OBJECT=$(echo "'$CLEANED_MATRIX'" | jq -r '.group2')  
+          SECOND_OBJECT=$(echo "'$MATRIX'" | jq -r '.group2')  
           echo "The second object in group2 is: $SECOND_OBJECT"
