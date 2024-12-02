@@ -21,6 +21,9 @@ jobs:
     needs: job1  
     steps:
       - run: |
-
-          echo "Matrix from job1"
-          # Gibt die Werte aus der Matrix aus
+      
+         # Speichern der Matrix in einer Variablen
+          MATRIX="${{ needs.job1.outputs.matrix }}"
+          
+          # Ausgabe der Matrix
+          echo "The stored matrix is: $MATRIX"
