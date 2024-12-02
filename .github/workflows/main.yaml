@@ -39,8 +39,14 @@ jobs:
          # Speichern der Matrix in einer Variablen
           MATRIX="${{ needs.job1.outputs.matrix }}"
           
+          testmatrix='{
+            "group1": ["item1", "items2"],
+            "group2": ["item1", "items2", "items3"],
+            "group3": ["item1", "items2", "items3", "items4"],
+            "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
+          }'
           # Ausgabe der Matrix
           echo "The stored matrix is: $MATRIX"
 
-          SECOND_OBJECT=$(echo "$MATRIX" | jq -r '.group2[1]')  
+          SECOND_OBJECT=$(echo "$testmatrix" | jq -r '.group2[1]')  
           echo "The second object in group2 is: $SECOND_OBJECT"
