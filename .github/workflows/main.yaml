@@ -28,7 +28,7 @@ jobs:
           matrix_str=$(echo "$testmatrix" | jq -c .)  
 
           echo "$matrix_str"
-          echo "matrix=$matrix_str" >> $GITHUB_OUTPUT    
+          echo "matrix=$matrix_str" >> "$GITHUB_OUTPUT"  
 
   job2: 
     runs-on: ubuntu-latest
