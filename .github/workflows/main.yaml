@@ -45,8 +45,10 @@ jobs:
             "group3": ["item1", "items2", "items3", "items4"],
             "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
           }'
+
+          matrix_str=$(echo "$testmatrix" | jq -c .) 
           # Ausgabe der Matrix
           echo "The stored matrix is: $MATRIX"
 
-          SECOND_OBJECT=$(echo "$testmatrix" | jq -r '.group2')  
+          SECOND_OBJECT=$(echo "$matrix_str" | jq -r '.group2')  
           echo "The second object in group2 is: $SECOND_OBJECT"
