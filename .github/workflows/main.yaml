@@ -43,7 +43,7 @@ jobs:
 
           CLEANED_MATRIX=$(echo $MATRIX | sed 's/^"//;s/"$//')
 
-          echo "Cleaned Matrix: $CLEANED_MATRIX"
+          echo "Cleaned Matrix: '$CLEANED_MATRIX'"
 
           SECOND_OBJECT=$(echo "$MATRIX" | jq -r '.group2')  
           echo "The second object in group2 is: $SECOND_OBJECT"
