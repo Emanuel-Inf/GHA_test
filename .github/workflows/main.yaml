@@ -39,8 +39,10 @@ jobs:
          # Speichern der Matrix in einer Variablen
           MATRIX="${{ needs.job1.outputs.matrix }}"
           
-          formatted=$(echo "$MATRIX" | jq '.')
-          echo"$formatted"
+          output=$(echo "$input" | \
+              sed -E 's/([a-zA-Z0-9_]+):/\"\1\":/g' | \  # Add quotes around keys
+              sed -E 's/([a-zA-Z0-9_]+)(,|\]|\s|\[)/\"\1\"\2/g'  # Add quotes around values
+          echo"$output"
           # Ausgabe der Matrix
           echo "The stored matrix is: $MATRIX"
 
