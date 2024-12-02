@@ -15,10 +15,17 @@ jobs:
       - id: set-matrix
         run: |
           #testmatrix='{"group1":[\"item1\", \"items2\"], "group2":[\"item1\", \"items2\", \"items3\"], "group3":[\"item1\", \"items2\", \"items3\", \"items4\"], "group4":[\"item1\", \"items2\", \"item3\", \"items4\", \"item5\", \"items6\"]}'
-          matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]} >> $GITHUB_OUTPUT
+          #matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]} >> $GITHUB_OUTPUT
+          testmatrix='{
+            "group1": ["item1", "items2"],
+            "group2": ["item1", "items2", "items3"],
+            "group3": ["item1", "items2", "items3", "items4"],
+            "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
+          }'
+          
           echo "$testmatrix"
           
-          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+          echo "matrix=$testmatrix" >> $GITHUB_OUTPUT
 
   job2: 
     runs-on: ubuntu-latest
