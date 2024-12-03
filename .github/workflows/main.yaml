@@ -23,7 +23,7 @@ jobs:
           
           matrix_str=$(echo "$testmatrix" | jq -c .)  
           
-          echo "'matrix=$matrix_str'" >> "$GITHUB_OUTPUT"  
+          echo "matrix=$matrix_str" >> "$GITHUB_OUTPUT"  
 
   job2: 
     runs-on: ubuntu-latest
@@ -32,9 +32,9 @@ jobs:
       - run: |
       
          # Speichern der Matrix in einer Variable
-          MATRIX=${{ needs.job1.outputs.matrix }}
+          MATRIX=
           
-          echo "The raw matrix from job1 is: $MATRIX"  # Print out the raw matrix for debugging
+          echo "The raw matrix from job1 is: ${{ needs.job1.outputs.matrix }}"  # Print out the raw matrix for debugging
 
           # Parse the JSON string back into a usable JSON object
           PARSED_MATRIX=$(echo "$MATRIX" | jq .)
