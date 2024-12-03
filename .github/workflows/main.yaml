@@ -19,16 +19,8 @@ jobs:
         id: create_matrix
         run: |
           # Python-Skript zum Erstellen der JSON-Matrix
-          import json
-          testmatrix = {
-              "group1": ["item1", "items2"],
-              "group2": ["item1", "items2", "items3"],
-              "group3": ["item1", "items2", "items3", "items4"],
-              "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
-          }
-          # JSON als kompakter String
-          print(testmatrix)
-          print(f"::set-output name=matrix::{json.dumps(testmatrix)}")
+          print("Hello, World!")
+          
   job2:
     runs-on: ubuntu-latest
     needs: job1
