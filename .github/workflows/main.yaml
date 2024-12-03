@@ -26,8 +26,9 @@ jobs:
             "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
           }'
           
-          # Output als escaped String setzen
-          echo "::set-output name=matrix::$(echo "$testmatrix" | jq -Rs .)"
+          # JSON-Daten bereinigen und als Output setzen
+          clean_matrix=$(echo "$testmatrix" | jq -c .)
+          echo "::set-output name=matrix::${clean_matrix}"
 
   job2:
     runs-on: ubuntu-latest
@@ -38,10 +39,10 @@ jobs:
 
       - name: Zeige die übergebene JSON Matrix
         run: |
-          # Empfange den JSON-Output aus Job 1
+          # Empfangener JSON-Output aus Job1
           echo "Empfangene JSON Matrix:"
           echo "${{ needs.job1.outputs.testmatrix }}"
 
-          # Verwende jq, um die JSON-Daten wieder korrekt zu formatieren
+          # Verarbeite den JSON-String mit jq
           echo "Verarbeitung mit jq:"
           echo "${{ needs.job1.outputs.testmatrix }}" | jq .
