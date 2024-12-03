@@ -22,9 +22,8 @@ jobs:
           }'
           
           matrix_str=$(echo "$testmatrix" | jq -c .)  
-          PARSED_MATRIX=$(echo "$matrix_str" | jq .)
-          echo "$PARSED_MATRIX"
-          echo "matrix=$matrix_str" >> "$GITHUB_OUTPUT"  
+          
+          echo "'matrix=$matrix_str'" >> "$GITHUB_OUTPUT"  
 
   job2: 
     runs-on: ubuntu-latest
