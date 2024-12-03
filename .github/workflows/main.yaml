@@ -32,8 +32,9 @@ jobs:
       - run: |
       
          # Speichern der Matrix in einer Variable
+          MATRIX=${{ needs.job1.outputs.matrix }}
           
-          echo "The raw matrix from job1 is: ${{ needs.job1.outputs.matrix }}"  # Print out the raw matrix for debugging
+          echo "The raw matrix from job1 (with quotes) is: $(echo "$MATRIX" | jq -r '.')"
 
           # Parse the JSON string back into a usable JSON object
           PARSED_MATRIX=$(echo "$MATRIX" | jq .)
