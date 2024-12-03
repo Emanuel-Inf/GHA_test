@@ -39,6 +39,6 @@ jobs:
           # Parse the JSON string back into a usable JSON object
           PARSED_MATRIX=$(echo "$MATRIX" | jq .)
 
-
+          echo "The PARSED matrix from job1 is: $PARSED_MATRIX" 
           SECOND_OBJECT=$(echo "$MATRIX" | jq -r '.group2')  
           echo "The second object in group2 is: $SECOND_OBJECT"
