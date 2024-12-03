@@ -18,13 +18,16 @@ jobs:
       - name: Erstelle JSON Matrix als Output
         id: create_matrix
         run: |
+          # JSON-Daten erstellen
           testmatrix='{
             "group1": ["item1", "items2"],
             "group2": ["item1", "items2", "items3"],
             "group3": ["item1", "items2", "items3", "items4"],
             "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
           }'
-          echo "::set-output name=matrix::${testmatrix}"
+          
+          # Output als escaped String setzen
+          echo "::set-output name=matrix::$(echo "$testmatrix" | jq -Rs .)"
 
   job2:
     runs-on: ubuntu-latest
@@ -35,8 +38,10 @@ jobs:
 
       - name: Zeige die übergebene JSON Matrix
         run: |
+          # Empfange den JSON-Output aus Job 1
           echo "Empfangene JSON Matrix:"
           echo "${{ needs.job1.outputs.testmatrix }}"
 
-          # Optional: Umwandlung in eine Datei, falls du die Matrix weiter verarbeiten möchtest
-        
+          # Verwende jq, um die JSON-Daten wieder korrekt zu formatieren
+          echo "Verarbeitung mit jq:"
+          echo "${{ needs.job1.outputs.testmatrix }}" | jq .
