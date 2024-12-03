@@ -47,4 +47,5 @@ jobs:
           print(valid_json)
           parsed_data = json.loads(valid_json)
           group1_items = parsed_data["group1"]
-
+          print(parsed_data)
+          print(group1_items)
