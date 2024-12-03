@@ -1,4 +1,4 @@
-name: Beispiel Workflow mit JSON-Output
+name: JSON Matrix über Outputs übergeben
 
 on:
   push:
@@ -9,17 +9,22 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      json_data: ${{ steps.create_json.outputs.json }}
+      testmatrix: ${{ steps.create_matrix.outputs.matrix }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Erstelle JSON-Datei als String
-        id: create_json
+      - name: Erstelle JSON Matrix als Output
+        id: create_matrix
         run: |
-          echo '{"key1":["value1", "value2", "value3"], "key2":["value4", "value5"]}' > data.json
-          echo "::set-output name=json::$(cat data.json)"
+          testmatrix='{
+            "group1": ["item1", "items2"],
+            "group2": ["item1", "items2", "items3"],
+            "group3": ["item1", "items2", "items3", "items4"],
+            "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
+          }'
+          echo "::set-output name=matrix::${testmatrix}"
 
   job2:
     runs-on: ubuntu-latest
@@ -28,11 +33,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Nutze das JSON Output von Job1
+      - name: Zeige die übergebene JSON Matrix
         run: |
-          echo "Empfangenes JSON:"
-          echo "${{ needs.job1.outputs.json_data }}"
-          
-          # Optional: Umwandlung des JSON-Outputs in ein Shell-Objekt (z.B. mit jq)
-          echo "${{ needs.job1.outputs.json_data }}" > data.json
-          cat data.json
+          echo "Empfangene JSON Matrix:"
+          echo "${{ needs.job1.outputs.testmatrix }}"
+
+          # Optional: Umwandlung in eine Datei, falls du die Matrix weiter verarbeiten möchtest
+        
