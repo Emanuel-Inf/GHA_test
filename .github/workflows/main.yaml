@@ -23,7 +23,7 @@ jobs:
           
           matrix_str=$(echo "$testmatrix" | jq -c .)  
 
-          echo "matrix=$matrix_str" >> "$GITHUB_ENV"  
+          echo "matrix=$matrix_str" >> "$GITHUB_OUTPUT"  
 
   job2: 
     runs-on: ubuntu-latest
@@ -34,7 +34,11 @@ jobs:
          # Speichern der Matrix in einer Variablen
           MATRIX="${{ needs.job1.outputs.matrix }}"
           
-          echo "The stored matrix is: $MATRIX"
+          echo "The raw matrix from job1 is: $MATRIX"  # Print out the raw matrix for debugging
 
-          SECOND_OBJECT=$(echo "$MATRIX" | jq -r '.group2[1]')    
+          # Parse the JSON string back into a usable JSON object
+          PARSED_MATRIX=$(echo "$MATRIX" | jq .)
+
+
+          SECOND_OBJECT=$(echo "$MATRIX" | jq -r '.group2')  
           echo "The second object in group2 is: $SECOND_OBJECT"
