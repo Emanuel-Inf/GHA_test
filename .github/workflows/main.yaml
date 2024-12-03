@@ -26,7 +26,7 @@ jobs:
             "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
           }'
           
-          # JSON-Daten bereinigen und als Output setzen
+          # JSON-Daten korrekt formatieren
           clean_matrix=$(echo "$testmatrix" | jq -c .)
           echo "::set-output name=matrix::${clean_matrix}"
 
