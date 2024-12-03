@@ -31,8 +31,8 @@ jobs:
     steps:
       - run: |
       
-         # Speichern der Matrix in einer Variablen
-          MATRIX="${{ needs.job1.outputs.matrix }}"
+         # Speichern der Matrix in einer Variable
+          MATRIX=${{ needs.job1.outputs.matrix }}
           
           echo "The raw matrix from job1 is: $MATRIX"  # Print out the raw matrix for debugging
 
