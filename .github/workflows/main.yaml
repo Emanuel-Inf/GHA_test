@@ -43,7 +43,8 @@ jobs:
         run: |
           import json
           raw_matrix = "${{ needs.job1.outputs.testmatrix }}"
-          print(raw_matrix)
-          parsed_data = json.loads(raw_matrix)
+          valid_json = raw_matrix.replace("'", '"')
+          print(valid_json)
+          parsed_data = json.loads(valid_json)
           group1_items = parsed_data["group1"]
 
