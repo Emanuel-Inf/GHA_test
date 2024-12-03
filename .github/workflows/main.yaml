@@ -23,7 +23,7 @@ jobs:
           
           matrix_str=$(echo "$testmatrix" | jq -c .)  
 
-          echo "matrix=$matrix_str" >> "$GITHUB_OUTPUT"  
+          echo "matrix=$matrix_str" >> "$GITHUB_ENV"  
 
   job2: 
     runs-on: ubuntu-latest
@@ -35,18 +35,6 @@ jobs:
           MATRIX="${{ needs.job1.outputs.matrix }}"
           
           echo "The stored matrix is: $MATRIX"
-          RAW_STRING='$MATRIX'
 
-          FORMATTED_STRING=$(echo "$RAW_STRING" \
-            | sed 's/{/{" /g' \
-            | sed 's/}/" }/g' \
-            | sed 's/:/":"/g' \
-            | sed 's/,/", "/g' \
-            | sed 's/\[/\[ "/g' \
-            | sed 's/\]/" \]/g' \
-          )
-          echo "$FORMATTED_STRING"
-
-
-          SECOND_OBJECT=$(echo "$MATRIX" | jq -r '.group2')  
+          SECOND_OBJECT=$(echo "$MATRIX" | jq -r '.group2[1]')    
           echo "The second object in group2 is: $SECOND_OBJECT"
