@@ -27,6 +27,7 @@ jobs:
               "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
           }
           # JSON als kompakter String
+          print(testmatrix)
           print(f"::set-output name=matrix::{json.dumps(testmatrix)}")
   job2:
     runs-on: ubuntu-latest
