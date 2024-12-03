@@ -34,4 +34,4 @@ jobs:
          # Speichern der Matrix in einer Variable
           MATRIX=${{ needs.job1.outputs.matrix }}
 
-          echo=$Matrix
+          echo=$MATRIX
