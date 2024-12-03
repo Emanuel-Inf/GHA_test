@@ -36,5 +36,5 @@ jobs:
       - name: Zeige die übergebene JSON Matrix
         shell: python
         run: |
-          raw_matrix = "${{ needs.job1.outputs.matrix }}"
+          raw_matrix = "${{ needs.job1.outputs.testmatrix }}"
           print(raw_matrix)
