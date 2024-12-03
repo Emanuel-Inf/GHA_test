@@ -41,5 +41,9 @@ jobs:
       - name: Zeige die übergebene JSON Matrix
         shell: python
         run: |
+          import json
           raw_matrix = "${{ needs.job1.outputs.testmatrix }}"
           print(raw_matrix)
+          parsed_data = json.loads(raw_matrix)
+          group1_items = parsed_data["group1"]
+
