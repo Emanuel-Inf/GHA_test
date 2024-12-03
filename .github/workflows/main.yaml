@@ -20,7 +20,15 @@ jobs:
         id: create_matrix
         run: |
           # Python-Skript zum Erstellen der JSON-Matrix
-          print("Hello, World!")
+          import json
+          testmatrix = {
+              "group1": ["item1", "items2"],
+              "group2": ["item1", "items2", "items3"],
+              "group3": ["item1", "items2", "items3", "items4"],
+              "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
+          }
+          # JSON als kompakter String
+          print(f"::set-output name=matrix::{json.dumps(testmatrix)}")
           
   job2:
     runs-on: ubuntu-latest
@@ -30,11 +38,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Zeige die übergebene JSON Matrix
+        shell: python
         run: |
-          # Empfangener JSON-Output aus Job1
-          echo "Empfangene JSON Matrix:"
-          echo "${{ needs.job1.outputs.testmatrix }}"
-
-          # Verarbeite den JSON-String mit jq
-          echo "Verarbeitung mit jq:"
-          echo "${{ needs.job1.outputs.testmatrix }}" | jq .
+          raw_matrix = '${{ needs.job1.outputs.testmatrix }}'
+          print(raw_matrix)
