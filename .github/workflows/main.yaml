@@ -8,44 +8,12 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
-    outputs:
-      testmatrix: ${{ steps.create_matrix.outputs.matrix }}
-
+    env: 
+      DOTNET_INSTALL_DIR: "/home/runner/.dotnet"
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Erstelle JSON Matrix als Output
-        shell: python 
-        id: create_matrix
-        run: |
-          # Python-Skript zum Erstellen der JSON-Matrix
-          import json
-          testmatrix = {
-              "group1": ["item1", "items2"],
-              "group2": ["item1", "items2", "items3"],
-              "group3": ["item1", "items2", "items3", "items4"],
-              "group4": ["item1", "items2", "item3", "items4", "item5", "items6"]
-          }
-          # JSON als kompakter String
-          print(testmatrix)
-          print(f'::set-output name=matrix::{testmatrix}')
-          
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Zeige die übergebene JSON Matrix
-        shell: python
-        run: |
-          import json
-          raw_matrix = "${{ needs.job1.outputs.testmatrix }}"
-          valid_json = raw_matrix.replace("'", '"')
-          print(valid_json)
-          parsed_data = json.loads(valid_json)
-          group1_items = parsed_data["group1"]
-          print(parsed_data)
-          print(group1_items)
+        uses: actions/checkout@v4
+      - name: Setup dotnet^
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: ./global.json
